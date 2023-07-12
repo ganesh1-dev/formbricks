@@ -3,6 +3,7 @@ import { verifyPassword } from "@/lib/auth";
 import { verifyToken } from "@/lib/jwt";
 import { prisma } from "@formbricks/database";
 import type { IdentityProvider } from "@prisma/client";
+import EmailProvider from "next-auth/providers/email";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
@@ -130,6 +131,11 @@ export const authOptions: NextAuthOptions = {
       allowDangerousEmailAccountLinking: true,
     }),
   ],
+
+  /* jwt: {
+    secret: "RANDOM_STRING",
+    maxAge: 60 * 60 * 24 * 30,
+  }, */
   callbacks: {
     async jwt({ token }) {
       const existingUser = await prisma.user.findFirst({

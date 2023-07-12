@@ -19,12 +19,12 @@ interface sendEmailData {
 
 export const sendEmail = async (emailData: sendEmailData) => {
   let transporter = nodemailer.createTransport({
-    host: env.SMTP_HOST,
-    port: env.SMTP_PORT,
-    secure: env.SMTP_SECURE_ENABLED === "1", // true for 465, false for other ports
+    host: process.env.SMTP_HOST,
+    secureConnection: true,
+    port: Number(process.env.SMTP_PORT),
     auth: {
-      user: env.SMTP_USER,
-      pass: env.SMTP_PASSWORD,
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
     },
     // logger: true,
     // debug: true,
